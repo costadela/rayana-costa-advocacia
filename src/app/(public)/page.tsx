@@ -58,7 +58,7 @@ const STEPS = [
 export default function Home() {
   return (
     <main className="min-h-screen bg-black">
-      {/* HERO (Fundo Preto Puro) */}
+      {/* HERO */}
       <section className="max-w-6xl mx-auto px-6 pt-24 pb-16 grid lg:grid-cols-[1.15fr_0.85fr] gap-14 items-center">
         <div>
           <h1 className="animate-fade-up delay-100 font-serif text-4xl sm:text-5xl lg:text-[3.2rem] xl:text-5xl font-semibold leading-[1.12] tracking-tight text-offwhite mb-7">
@@ -90,7 +90,7 @@ export default function Home() {
         {/* Imagem de Destaque */}
         <div className="animate-fade-up delay-200 relative aspect-[4/5] rounded-lg overflow-hidden border border-gold/30 shadow-2xl shadow-gold/10 group">
           <Image
-            src="/imagens/rayana-about.jpg"
+            src="/imagens/rayana-hero.jpg"
             alt="Dra. Rayana Costa, advogada especialista em Execução Penal"
             fill
             sizes="(min-width: 1024px) 420px, 100vw"
@@ -100,53 +100,52 @@ export default function Home() {
         </div>
       </section>
 
-      {/* NÚMEROS DE AUTORIDADE */}
-      <div className="border-b border-gold/15 py-12 bg-black">
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 sm:grid-cols-4 gap-8">
-          {[
-            {
-              target: 2017,
-              prefix: "Desde ",
-              suffix: "",
-              label: "Atuando na Advocacia Criminal e Execução Penal",
-            },
-            {
-              target: 400,
-              prefix: "+",
-              suffix: "",
-              label: "Atendimentos jurídicos realizados no CERESP/JF",
-            },
-            {
-              target: 1,
-              prefix: "",
-              suffix: "",
-              label: "Autora do Manual Prático de Execução Penal",
-            },
-            {
-              target: 24,
-              prefix: "",
-              suffix: "h",
-              label: "Atendimento emergencial em flagrantes",
-            },
-          ].map((s) => (
-            <Reveal key={s.label}>
-              <div className="flex flex-col h-full justify-between">
-                <p className="font-serif text-3xl sm:text-4xl font-semibold mb-2">
-                  <span className="text-gold">{s.prefix}</span>
-                  <span className="text-offwhite">
-                    <CountUp target={s.target} />
-                  </span>
-                  <span className="text-gold">{s.suffix}</span>
-                </p>
-                <p className="text-offwhite/85 text-xs sm:text-sm leading-relaxed max-w-[200px]">
-                  {s.label}
-                </p>
-              </div>
-            </Reveal>
-          ))}
+{/* NÚMEROS DE AUTORIDADE */}
+<div className="border-b border-gold/15 py-12 bg-black">
+  <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 sm:grid-cols-4 gap-8">
+    {[
+      {
+        target: 2017,
+        prefix: "Desde ",
+        suffix: "",
+        label: "Atuando na Advocacia Criminal e Execução Penal",
+      },
+      {
+        target: 400,
+        prefix: "+",
+        suffix: "",
+        label: "Atendimentos jurídicos realizados no CERESP/JF",
+      },
+      {
+        target: 1,
+        prefix: "",
+        suffix: "",
+        label: "Autora do Manual Prático de Execução Penal",
+      },
+      {
+        target: 24,
+        prefix: "",
+        suffix: "h",
+        label: "Atendimento emergencial em flagrantes",
+      },
+    ].map((s) => (
+      <Reveal key={s.label}>
+        <div className="flex flex-col h-full justify-between">
+          <p className="font-serif text-3xl sm:text-4xl font-semibold mb-2 text-offwhite">
+            <span>{s.prefix}</span>
+            <span>
+              <CountUp target={s.target} />
+            </span>
+            <span>{s.suffix}</span>
+          </p>
+          <p className="text-offwhite/80 text-xs sm:text-sm leading-relaxed max-w-[200px]">
+            {s.label}
+          </p>
         </div>
-      </div>
-
+      </Reveal>
+    ))}
+  </div>
+</div>
       {/* ÁREAS DE ATUAÇÃO */}
       <section id="areas" className="max-w-6xl mx-auto px-6 py-24 bg-black">
         <Reveal>
@@ -266,18 +265,34 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="max-w-6xl mx-auto px-6 py-24 bg-black">
-        <Reveal>
-          <p className="text-gold text-xs tracking-widest uppercase font-medium mb-4">Perguntas frequentes</p>
-          <h2 className="font-serif text-3xl sm:text-4xl text-offwhite mb-14 max-w-xl">
-            Dúvidas comuns antes da consulta
-          </h2>
-        </Reveal>
-        <Reveal className="w-full">
-          <FaqAccordion />
-        </Reveal>
-      </section>
+{/* FAQ */}
+<section className="max-w-6xl mx-auto px-6 py-24 bg-black">
+  <Reveal>
+    <p className="text-gold text-xs tracking-widest uppercase font-medium mb-4">
+      Perguntas frequentes
+    </p>
+    <h2 className="font-serif text-3xl sm:text-4xl text-offwhite mb-14 max-w-xl">
+      Dúvidas comuns antes da consulta
+    </h2>
+  </Reveal>
+
+  <Reveal className="w-full">
+    <FaqAccordion />
+  </Reveal>
+  <Reveal>
+    <div className="pt-10 mt-6 text-left">
+      <p className="text-xs sm:text-sm text-offwhite/60 font-light">
+        Não encontrou a sua dúvida?{" "}
+        <Link
+          href="#contato"
+          className="text-gold font-medium hover:underline underline-offset-4 transition-all inline-flex items-center gap-1"
+        >
+          Fale comigo agora <span className="text-xs">↓</span>
+        </Link>
+      </p>
+    </div>
+  </Reveal>
+</section>
 
       {/* CONTATO */}
       <section id="contato" className="bg-[#0e0e0d] border-t border-gold/15 py-24">

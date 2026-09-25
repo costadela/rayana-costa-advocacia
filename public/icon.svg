@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Rayana Costa monogram">
+  <title>Rayana Costa — Icon</title>
+  <g fill="none" stroke="#222" stroke-width="5" stroke-linecap="square">
+    <!-- upper-right corner -->
+    <path d="M236 82H430V276"/>
+    <!-- lower-left corner -->
+    <path d="M82 236V430H276"/>
+  </g>
+
+  <!-- RC monogram -->
+  <g fill="#222"
+     font-family="Bodoni 72, Didot, Bodoni MT, Times New Roman, serif"
+     font-weight="400">
+    <text x="112" y="328" font-size="235">R</text>
+    <text x="278" y="328" font-size="235">C</text>
+  </g>
+</svg>
