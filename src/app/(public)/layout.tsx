@@ -3,6 +3,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Poppins } from "next/font/google";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 import "@/app/globals.css";
 
 const playfair = Playfair_Display({
@@ -42,50 +43,11 @@ export default function RootLayout({
         className="font-sans antialiased bg-black text-offwhite"
         suppressHydrationWarning
       >
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-gold/15">
-          <div className="max-w-6xl mx-auto px-6 h-24 flex items-center justify-between">
-            {/* Logótipo / Nome Principal */}
-            <Link href="/" className="group flex flex-col justify-center">
-              <span className="font-serif text-2xl sm:text-3xl font-semibold tracking-wide text-offwhite group-hover:text-gold transition-colors">
-                Dra. Rayana Costa
-              </span>
-              <span className="text-xs text-gold tracking-[0.2em] uppercase font-medium pt-0.5">
-                Execução Penal
-              </span>
-            </Link>
-
-            {/* Links de Navegação Interna */}
-            <div className="hidden sm:flex items-center gap-8 text-sm text-offwhite font-medium">
-              <Link
-                href="/"
-                className="link-underline hover:text-gold transition-colors focus-ring"
-              >
-                Início
-              </Link>
-              <Link
-                href="/cursos"
-                className="link-underline hover:text-gold transition-colors focus-ring"
-              >
-                Cursos
-              </Link>
-              <Link
-                href="/projetos-sociais"
-                className="link-underline hover:text-gold transition-colors focus-ring"
-              >
-                Projetos Sociais
-              </Link>
-              <Link
-                href="/contato"
-                className="link-underline hover:text-gold transition-colors focus-ring"
-              >
-                Contato
-              </Link>
-            </div>
-          </div>
-        </nav>
+        {/* Barra de Navegação Responsiva com Menu Mobile */}
+        <Navbar />
 
         {/* Conteúdo Principal */}
-        <main className="pt-24">{children}</main>
+        <main className="pt-20 sm:pt-24">{children}</main>
 
         <footer className="border-t border-gold/10 bg-black pt-16 pb-8">
           <div className="max-w-6xl mx-auto px-6">
