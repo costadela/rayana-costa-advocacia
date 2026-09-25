@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import LeadForm from "@/src/components/LeadForm";
-import Reveal from "@/src/components/Reveal";
-import FaqAccordion from "@/src/components/FaqAccordion";
-import CountUp from "@/src/components/CountUp";
+import LeadForm from "@/components/LeadForm";
+import Reveal from "@/components/Reveal";
+import FaqAccordion from "@/components/FaqAccordion";
+import CountUp from "@/components/CountUp";
 
 export const AREAS = [
   {

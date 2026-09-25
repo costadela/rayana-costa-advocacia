@@ -1,4 +1,4 @@
-import Reveal from "@/src/components/Reveal";
+import Reveal from "@/components/Reveal";
 
 export default function ProjetosSociaisPage() {
   return (

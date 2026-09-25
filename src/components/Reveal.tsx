@@ -2,13 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export default function Reveal({
-  children,
-  className = "",
-}: {
+interface RevealProps {
   children: React.ReactNode;
   className?: string;
-}) {
+}
+
+export default function Reveal({ children, className = "" }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -19,7 +18,10 @@ export default function Reveal({
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) setVisible(true);
+          if (entry.isIntersecting) {
+            setVisible(true);
+            io.unobserve(entry.target); 
+          }
         });
       },
       { threshold: 0.15 }

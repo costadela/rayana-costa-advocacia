@@ -1,39 +1,36 @@
-# ⚖️ Rayana Costa Advocacia & Consultoria Jurídica
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Plataforma Web fullstack desenvolvida para a **Dra. Rayana Costa**, especialista em **Execução Penal e Advocacia Criminal**. O ecossistema reúne portal institucional para atendimento jurídico, plataforma de cursos educativos sobre Execução Penal, apresentação de projetos sociais e painel administrativo interno.
+## Getting Started
 
----
+First, run the development server:
 
-## 📌 Visão Geral do Projeto
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-O projeto foi construído para proporcionar uma experiência moderna, transparente e humanizada para clientes no sistema prisional e alunos da área jurídica.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### 🌟 Principais Seções e Módulos
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-- **Home / Landing Page:** Apresentação da atuação profissional.
-- **Atendimento Jurídico (`/contato`):** Formulário de captação de leads (`LeadForm.tsx`) para consultoria e acompanhamento processual.
-- **Cursos (`/cursos`):** Área dedicada ao ensino de prática em Execução Penal.
-- **Projetos Sociais (`/projetos-sociais`):** Divulgação das iniciativas de impacto social e direitos humanos no sistema prisional.
-- **Painel Administrativo (`/admin`):** Dashboard restrito para gestão e visualização de atendimentos e conteúdos (`AdminDashboard.tsx`).
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
----
+## Learn More
 
-## 🛠️ Tecnologias e Ferramentas
+To learn more about Next.js, take a look at the following resources:
 
-### **Frontend**
-- **Framework:** [Next.js](https://nextjs.org/) (App Router)
-- **Linguagem:** [TypeScript](https://www.typescriptlang.org/)
-- **Estilização:** [Tailwind CSS](https://tailwindcss.com/) e PostCSS
-- **Componentes Interativos:**
-  - `CountUp.tsx`: Animação de contadores numéricos de autoridade.
-  - `FaqAccordion.tsx`: Sanfona de perguntas frequentes.
-  - `LeadForm.tsx`: Formulário de agendamento e consultoria.
-  - `Reveal.tsx`: Efeitos e animações de scroll/fade-up.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-### **Backend**
-- **Estrutura:** Módulo dedicado (`/backend`) para APIs e gestão de dados do dashboard.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+## Deploy on Vercel
 
-## 📜 Licença e Propriedade
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Este software é de propriedade privada de **Rayana Costa Advocacia e Consultoria Jurídica**. Todos os direitos autorais e de marca estão reservados.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

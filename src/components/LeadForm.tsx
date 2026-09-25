@@ -31,7 +31,7 @@ export default function LeadForm() {
     if (validationError) setValidationError("");
   }
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setValidationError("");
 
@@ -62,20 +62,7 @@ export default function LeadForm() {
 
     setStatus("loading");
 
-    const data = { nome, whatsapp: whatsappValue, email, caso };
-
-    // Envio para API interna em segundo plano
-    try {
-      await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-    } catch (err) {
-      console.warn("Aviso: Falha ao registrar o lead na API interna, prosseguindo para o WhatsApp.", err);
-    }
-
-    // Redirecionamento para o WhatsApp
+    // Redirecionamento direto para o WhatsApp
     const numeroWhatsApp = "5532985094669";
     const mensagem = `Olá, Dra. Rayana. Gostaria de uma análise preliminar do meu caso.
 

@@ -1,5 +1,5 @@
-import LeadForm from "@/src/components/LeadForm";
-import Reveal from "@/src/components/Reveal";
+import LeadForm from "@/components/LeadForm";
+import Reveal from "@/components/Reveal";
 
 export default function ContatoPage() {
   return (
