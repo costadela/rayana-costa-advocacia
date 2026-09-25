@@ -21,6 +21,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://rayanacosta.adv.br"), 
   title: "Rayana Costa — Execução Penal",
   description: "Defesa criminal estratégica e humana. OAB/MG 192.542.",
   icons: {
@@ -29,9 +30,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Rayana Costa — Execução Penal",
     description: "Defesa criminal estratégica e humana. OAB/MG 192.542.",
+    url: "https://rayanacosta.adv.br",
+    siteName: "Rayana Costa Advocacia",
     images: [
       {
-        url: "/imagens/logo.jpg", 
+        url: "https://rayanacosta.adv.br/imagens/logo.jpg", 
         width: 1200,                 
         height: 630,
         alt: "Rayana Costa — Execução Penal",
