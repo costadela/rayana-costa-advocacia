@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     siteName: "Rayana Costa Advocacia",
     images: [
       {
-        url: "https://rayanacosta.adv.br/imagens/logo.jpg", 
+        url: "https://rayanacosta.adv.br/imagens/logo-escuro.jpg", 
         width: 1200,                 
         height: 630,
         alt: "Rayana Costa — Execução Penal",
