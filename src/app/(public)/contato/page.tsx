@@ -7,11 +7,10 @@ export default function ContatoPage() {
       <section className="w-full max-w-2xl mx-auto px-6">
         <Reveal>
           <h1 className="font-serif text-3xl sm:text-4xl text-offwhite mb-3 text-center">
-            Cada hora importa
+            Cada caso merece atenção
           </h1>
           <p className="text-offwhite/80 text-center mb-10 text-sm sm:text-base">
-            Fale agora com quem vai conduzir o seu caso. Atendimento imediato e
-            confidencial, direto com a advogada responsável.
+            Fale diretamente com a advogada responsável pelo seu caso. Conte brevemente o que está acontecendo e receba uma orientação inicial sobre os próximos passos.
           </p>
           <LeadForm />
         </Reveal>

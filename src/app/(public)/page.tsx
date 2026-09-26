@@ -8,27 +8,33 @@ import CountUp from "@/components/CountUp";
 export const AREAS = [
   {
     id: "01",
-    title: "Execução Penal & Cálculos",
+    title: "Execução Penal",
     description:
-      "Acompanhamento rigoroso de pena, remição de dias trabalhados ou estudados, retificação de guia de recolhimento e progressão de regime.",
+      "Atuação na defesa dos direitos da pessoa em cumprimento de pena, com acompanhamento de cálculos, remição, progressão de regime, livramento condicional, indulto e demais benefícios previstos em lei.",
   },
   {
     id: "02",
-    title: "Atendimento no Estabelecimento Prisional",
+    title: "Crimes Contra a Vida",
     description:
-      "Visitas técnicas e atendimento direto ao custodiado em unidades prisionais para orientação jurídica, escuta humanizada e alinhamento de defesa.",
+      "Atuação na defesa em casos de homicídio e outros crimes contra a vida, com análise individualizada do processo e construção estratégica da defesa.",
   },
   {
     id: "03",
-    title: "Indulto & Comutação de Pena",
+    title: "Crimes Contra o Patrimônio",
     description:
-      "Análise de requisitos objetivos e subjetivos para pedidos de perdão ou redução de pena com base nos Decretos Presidenciais vigentes.",
+      "Defesa em casos envolvendo furto, roubo, estelionato e outros crimes contra o patrimônio, desde a análise do processo até as diferentes fases da persecução penal.",
   },
   {
     id: "04",
-    title: "Livramento Condicional & Benefícios",
+    title: "Crimes da Lei de Drogas",
     description:
-      "Atuação célere na instrução e pedido de liberdade condicional, saída temporária e adequação de condições de cumprimento de pena.",
+      "Atuação em processos relacionados ao tráfico e demais crimes previstos na legislação de drogas, com análise das circunstâncias e das particularidades de cada caso.",
+  },
+  {
+    id: "05",
+    title: "Crimes Contra a Honra",
+    description:
+      "Atuação em casos envolvendo calúnia, difamação e injúria, com atenção às particularidades de cada situação e às medidas jurídicas cabíveis.",
   },
 ];
 
@@ -36,22 +42,22 @@ const STEPS = [
   {
     n: "01",
     title: "Primeira Escuta e Diagnóstico",
-    desc: "Análise inicial da situação do cliente e da família para entender as demandas urgentes e o histórico do caso.",
+    desc: "Compreensão cuidadosa da situação do cliente e de sua família, identificando as demandas urgentes e o histórico do caso.",
   },
   {
     n: "02",
     title: "Análise Técnica do Processo",
-    desc: "Exame minucioso da guia de execução, cálculos de pena e eventuais pendências administrativas ou judiciais.",
+    desc: "Análise detalhada da execução penal, dos cálculos de pena e de possíveis pendências administrativas ou judiciais.",
   },
   {
     n: "03",
     title: "Atuação e Acompanhamento",
-    desc: "Peticionamento focado em resultados, visitas presenciais e acompanhamento próximo dos trâmites no tribunal.",
+    desc: "Atuação estratégica no processo, com peticionamento, acompanhamento dos trâmites e, quando necessário, presença no sistema prisional.",
   },
   {
     n: "04",
     title: "Retorno Transparente à Família",
-    desc: "Comunicação clara e constante com os familiares, informando cada decisão e os próximos passos do processo.",
+    desc: "Comunicação clara e próxima com a família, explicando decisões, movimentações e os próximos passos do processo.",
   },
 ];
 
@@ -162,13 +168,10 @@ export default function Home() {
             Onde faço a diferença
           </p>
           <h2 className="font-serif text-3xl sm:text-4xl text-offwhite mb-4 max-w-xl">
-            Atendimento Especializado e Humanizado
+            Atendimento especializado e humanizado
           </h2>
           <p className="text-offwhite/80 max-w-md mb-14 text-sm sm:text-base leading-relaxed">
-            Análise minuciosa de processos de Execução Penal, acompanhamento de
-            direitos (progressão de regime, livramento condicional, indulto,
-            remição e cálculo de pena) e atendimento direto ao custodiado e aos
-            seus familiares.
+            Uma atuação técnica, próxima e individualizada na Execução Penal. Da progressão de regime ao livramento condicional, da remição ao cálculo de pena. Oferecendo orientação clara ao custodiado e à sua família em cada etapa.
           </p>
         </Reveal>
 
@@ -194,8 +197,15 @@ export default function Home() {
 
       {/* SOBRE */}
       <section className="bg-[#0e0e0d] border-y border-gold/15 py-20">
+        {/* TAG DA SEÇÃO */}
+  <div className="max-w-6xl mx-auto px-6 mb-8 flex justify-start">
+    <p className="text-gold text-xs tracking-widest uppercase font-medium">
+      Minha trajetória
+    </p>
+  </div>
         <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-[340px_1fr] gap-12 lg:gap-16 items-center">
           <Reveal>
+            
             <div className="relative aspect-[3/4] w-full max-w-[340px] rounded-lg overflow-hidden border border-gold/25 shadow-2xl shadow-black/80 group mx-auto md:mx-0">
               <Image
                 src="/imagens/rayana-sobre.jpg"
@@ -216,51 +226,39 @@ export default function Home() {
             </h2>
 
             <div className="space-y-4 text-offwhite/90 leading-relaxed text-sm sm:text-base max-w-2xl mb-6">
-              <p>
-                Minha atuação na Execução Penal nasceu da prática e da vivência
-                diária no sistema prisional. Desde 2017, dedico meu trabalho a
-                transformar a complexidade da Execução Penal em uma atuação
-                técnica, ágil, ética e, acima de tudo, próxima de quem precisa
-                de orientação.
-              </p>
-              <p>
-                Acredito em uma advocacia que alia conhecimento técnico à
-                escuta atenta. Cada história é recebida com respeito, e cada
-                família deve ter acesso a orientações claras e transparentes
-                sobre o caso e seus possíveis caminhos.
-              </p>
-              <p>
-                Além da advocacia, atuo como professora, mentora e autora de
-                materiais práticos, compartilhando com outros profissionais do
-                Direito a experiência construída ao longo dos anos nos
-                tribunais e nas unidades prisionais.
-              </p>
+        <p>
+Minha atuação na Execução Penal nasceu da prática e da vivência diária no sistema prisional. Desde 2017, transformo essa experiência em uma advocacia técnica, próxima e humanizada, buscando tornar mais claros os caminhos e direitos de cada pessoa que chega até mim.
+        </p>
+        Acredito que, por trás de cada processo, existe uma história que precisa ser ouvida. Por isso, uno conhecimento jurídico, escuta e presença — na defesa dos meus clientes, no atendimento às famílias e também no ensino, compartilhando a experiência que construí ao longo dos anos.
+      <p>
+
+      </p>
             </div>
 
-            <div className="border-l-2 border-gold pl-4 max-w-xl mb-8 py-2 bg-gold/5 rounded-r-sm">
-              <p className="text-offwhite/90 text-xs sm:text-sm leading-relaxed">
-                Sou autora do livro{" "}
-                <Link
-                  href="/cursos"
-                  className="link-underline text-gold font-medium hover:text-goldSoft"
-                >
-                  Manual Prático de Execução Penal
-                </Link>{" "}
-                e professora docente no{" "}
-                <Link
-                  href="/cursos"
-                  className="link-underline text-gold font-medium hover:text-goldSoft"
-                >
-                  curso PeP
-                </Link>{" "}
-                (preparatório para a OAB), além de mentora de mais de 150
-                advogados e alunos.
-              </p>
-            </div>
+      <div className="border-l-2 border-gold pl-4 max-w-xl mb-8 py-3 bg-gold/5 rounded-r-sm">
+        <p className="text-offwhite/90 text-xs sm:text-sm leading-relaxed">
+          Sou autora do livro{" "}
+          <Link
+            href="/cursos"
+            className="link-underline text-gold font-medium hover:text-goldSoft"
+          >
+            Manual Prático de Execução Penal
+          </Link>{" "}
+          e professora docente no{" "}
+          <Link
+            href="/cursos"
+            className="link-underline text-gold font-medium hover:text-goldSoft"
+          >
+            curso PeP
+          </Link>{" "}
+          (preparatório para a OAB), além de mentora de mais de 150
+          advogados e alunos.
+        </p>
+      </div>
 
             <div className="flex flex-wrap gap-8">
               {[
-                { n: "10", l: "anos de atuação" },
+                { n: "9", l: "anos de atuação" },
                 { n: "300+", l: "processos conduzidos" },
                 { n: "1", l: "livro publicado" },
                 { n: "150+", l: "alunos mentorados" },
@@ -288,8 +286,8 @@ export default function Home() {
           <p className="text-gold text-xs tracking-widest uppercase font-medium mb-4">
             Meu método
           </p>
-          <h2 className="font-serif text-3xl sm:text-4xl text-offwhite mb-14 max-w-xl">
-            Muito além do processo | Advocacia humanizada na Execução Penal.
+          <h2 className="font-serif text-3xl sm:text-4xl text-offwhite mb-14 max-w-2xl">
+                Muito além do processo. Advocacia humanizada na Execução Penal.
           </h2>
         </Reveal>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 border-t border-gold/15">

@@ -5,27 +5,23 @@ import { useState } from "react";
 const FAQS = [
   {
     q: "O atendimento é realizado diretamente com a Dra. Rayana Costa?",
-    a: "Sim. Acreditamos que a confiança é a base da advocacia criminal. Todo o atendimento é humanizado, sigiloso e conduzido diretamente pela advogada responsável, garantindo uma relação próxima e transparente.",
+    a: "Sim. O atendimento é realizado de forma próxima e humanizada, diretamente pela advogada responsável pelo caso, com escuta individualizada, transparência e sigilo profissional.",
   },
   {
     q: "Como funciona o acompanhamento do processo de Execução Penal?",
-    a: "Realizamos a análise detalhada do cálculo de pena e das pendências judiciais, fazemos os atendimentos presenciais necessários no estabelecimento prisional e mantemos a família constantemente informada sobre cada andamento.",
+    a: "O trabalho começa com uma análise detalhada do processo, do cálculo de pena e das possíveis pendências. A partir disso, são definidas as medidas necessárias, com acompanhamento dos trâmites e comunicação clara com a família.",
   },
   {
-    q: "Quando o acautelado pode começar a trabalhar no sistema prisional?",
-    a: "A permissão para o trabalho dentro ou fora da unidade prisional depende do regime de cumprimento de pena (fechado ou semiaberto), do cumprimento do lapso temporal e do comportamento do apenado. Cada dia trabalhado reme parte da pena.",
+    q: "Quando o apenado pode trabalhar durante o cumprimento da pena?",
+    a: "A possibilidade de trabalho depende das condições do caso, do regime de cumprimento da pena e das regras aplicáveis à unidade prisional. O trabalho também pode gerar remição de parte da pena, conforme os requisitos legais.",
   },
   {
-    q: "Preciso ser condenado definitivamente para ter direito ao Indulto ou comutação?",
-    a: "Em regra, o Indulto e a comutação de pena exigem o trânsito em julgado da condenação, cumprindo os requisitos objetivos (tempo de pena) e subjetivos (bom comportamento) estabelecidos no Decreto Presidencial aplicável.",
+    q: "Quando é possível pedir Indulto ou Comutação de Pena?",
+    a: "A possibilidade depende dos requisitos estabelecidos no decreto presidencial aplicável a cada caso. Por isso, é necessário analisar a situação do apenado, o tempo de pena cumprido e os demais requisitos previstos na norma vigente.",
   },
   {
-    q: "O que fazer se o meu familiar praticar ou for acusado de falta grave?",
-    a: "A acusação de falta grave pode interromper a contagem do tempo para benefícios e regressar o regime. Nesses casos, é indispensável a defesa técnica formal em Processo Administrativo Disciplinar (PAD) para resguardar seus direitos.",
-  },
-  {
-    q: "O atendimento prestado é sigiloso?",
-    a: "Sim. Todo o atendimento e a troca de informações e documentos são estritamente protegidos pelo sigilo profissional inerente à advocacia criminal e ao Código de Ética da OAB.",
+    q: "O que acontece quando há uma acusação de falta grave?",
+    a: "A apuração de uma falta grave pode trazer consequências importantes para a execução da pena e para a análise de benefícios. Nesses casos, é importante contar com acompanhamento jurídico para apresentar a defesa e acompanhar o procedimento.",
   },
 ];
 

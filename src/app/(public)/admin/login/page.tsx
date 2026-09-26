@@ -61,7 +61,7 @@ export default function AdminLogin() {
               type="email"
               required
               className="w-full bg-black border border-gold/20 rounded-md px-3.5 py-2.5 text-sm text-offwhite placeholder:text-offwhite/30 focus:outline-none focus:border-gold transition-colors"
-              placeholder="rayanascosta@gmail.com"
+            placeholder="seu@email.com"
             />
           </div>
 
@@ -75,6 +75,7 @@ export default function AdminLogin() {
               type="password"
               required
               className="w-full bg-black border border-gold/20 rounded-md px-3.5 py-2.5 text-sm text-offwhite focus:outline-none focus:border-gold transition-colors"
+            placeholder="********"
             />
           </div>
 

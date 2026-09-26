@@ -20,24 +20,20 @@ export default function ProjetosSociaisPage() {
               {/* Coluna da Esquerda: Subtítulo e Título */}
               <div className="md:col-span-6 space-y-4">
                 <p className="text-gold font-mono text-xs tracking-[0.2em] uppercase font-medium">
-                  PROJETOS SOCIAIS
+                  CONTRIBUIÇÃO SOCIAL
                 </p>
                 <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-offwhite font-normal leading-[1.15]">
-                  Direito que também se faz com humanidade
+                  Onde o Direito encontra a vida.
                 </h1>
               </div>
 
               {/* Coluna da Direita: Texto Explicativo Alinhado */}
               <div className="md:col-span-6 text-offwhite/75 text-sm sm:text-base leading-relaxed font-light space-y-4">
                 <p>
-                  Acredito que o Direito vai além dos processos e dos tribunais.
-                  É também uma forma de transformar realidades, defender a
-                  dignidade e ampliar o acesso à cidadania.
+                  Minha atuação social nasce de uma crença simples: o Direito só cumpre verdadeiramente seu papel quando alcança as pessoas.
                 </p>
                 <p>
-                  Os projetos que desenvolvo nascem desse propósito: contribuir,
-                  por meio da minha atuação, para que mais pessoas conheçam
-                  seus direitos e tenham suas histórias ouvidas e respeitadas.
+                  Por isso, desenvolvo projetos que levam informação, acolhimento e cidadania para além do espaço tradicional da advocacia, colocando o conhecimento jurídico a serviço de histórias reais e de vidas que precisam ser ouvidas.
                 </p>
               </div>
             </div>

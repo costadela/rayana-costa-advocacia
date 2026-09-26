@@ -12,13 +12,13 @@ export default function Cursos() {
       <section className="max-w-4xl mx-auto px-6 pt-32 pb-24">
         <div className="mb-12">
           <p className="text-gold text-xs tracking-widest uppercase font-medium mb-2">
-            Cursos e Publicações
+            FORMAÇÃO 
           </p>
           <h1 className="font-serif text-3xl sm:text-4xl text-offwhite font-medium">
-            Materiais Exclusivos e Mentoria
+            Conhecimento que vira prática
           </h1>
           <p className="text-offwhite/85 text-sm sm:text-base mt-2 max-w-xl leading-relaxed">
-            Conteúdos práticos voltados para estudantes, advogados e examinandos da OAB que buscam direcionamento estratégico.
+            Conteúdos, materiais e mentorias desenvolvidos pela Dra. Rayana Costa para estudantes e profissionais que buscam conhecimento jurídico aplicável, direcionamento e segurança na prática.
           </p>
         </div>
 
@@ -50,7 +50,7 @@ export default function Cursos() {
               </div>
 
               <p className="text-offwhite/85 text-sm leading-relaxed">
-                Guia prático e objetivo desenvolvido pela Dra. Rayana Costa para atuação técnica e descomplicada na fase de execução penal. Ideal para advogados criminalistas e estudantes.
+                Guia prático e objetivo para compreender e atuar na fase de execução penal, com uma abordagem técnica e descomplicada. Desenvolvido para advogados criminalistas e estudantes que desejam aprofundar seus conhecimentos na área.
               </p>
 
               <div className="pt-2 flex flex-wrap items-center gap-6 justify-between sm:justify-start">
@@ -84,7 +84,7 @@ export default function Cursos() {
                   Mentoria PePOAB — Plano de Estudo Personalizado
                 </h2>
                 <p className="text-offwhite/85 text-sm leading-relaxed">
-                  Aprovação na OAB não é sobre estudar mais, é sobre ter direção. Um plano 100% personalizado para a sua rotina, com acompanhamento de evolução e metas diárias até a prova.
+                  A aprovação na OAB não depende apenas de estudar mais, mas de saber o que estudar, como organizar a rotina e acompanhar a própria evolução. Um plano personalizado de estudos, com metas e acompanhamento até a prova.
                 </p>
               </div>
 
