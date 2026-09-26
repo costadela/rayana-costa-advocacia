@@ -2,15 +2,33 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Função para tratar o clique na Home/Logo
+  const handleHomeClick = (e: React.MouseEvent) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+    setIsMenuOpen(false);
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-gold/15">
       <div className="max-w-6xl mx-auto px-6 h-20 sm:h-24 flex items-center justify-between">
         {/* Logótipo / Nome Principal */}
-        <Link href="/" className="group flex flex-col justify-center">
+        <Link
+          href="/"
+          onClick={handleHomeClick}
+          className="group flex flex-col justify-center"
+        >
           <span className="font-serif text-xl sm:text-3xl font-semibold tracking-wide text-offwhite group-hover:text-gold transition-colors">
             Dra. Rayana Costa
           </span>
@@ -23,6 +41,7 @@ export default function Navbar() {
         <div className="hidden sm:flex items-center gap-8 text-sm text-offwhite font-medium">
           <Link
             href="/"
+            onClick={handleHomeClick}
             className="link-underline hover:text-gold transition-colors focus-ring"
           >
             Início
@@ -83,7 +102,7 @@ export default function Navbar() {
         <div className="sm:hidden bg-[#0e0e0d] border-b border-gold/15 px-6 py-6 space-y-4 animate-in slide-in-from-top duration-200">
           <Link
             href="/"
-            onClick={() => setIsMenuOpen(false)}
+            onClick={handleHomeClick}
             className="block text-base text-offwhite hover:text-gold transition-colors py-1"
           >
             Início

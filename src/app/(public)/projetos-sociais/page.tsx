@@ -33,7 +33,7 @@ export default function ProjetosSociaisPage() {
                   Minha atuação social nasce de uma crença simples: o Direito só cumpre verdadeiramente seu papel quando alcança as pessoas.
                 </p>
                 <p>
-                  Por isso, desenvolvo projetos que levam informação, acolhimento e cidadania para além do espaço tradicional da advocacia, colocando o conhecimento jurídico a serviço de histórias reais e de vidas que precisam ser ouvidas.
+                  Por isso, desenvolvo projetos voltados à ressocialização, à preservação dos vínculos familiares e à valorização da dignidade, levando informação, acolhimento e cidadania para além do espaço tradicional da advocacia. São iniciativas que buscam olhar para a pessoa para além do processo e contribuir para a construção de novos caminhos.
                 </p>
               </div>
             </div>

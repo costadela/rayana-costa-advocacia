@@ -10,7 +10,7 @@ export const AREAS = [
     id: "01",
     title: "Execução Penal",
     description:
-      "Atuação na defesa dos direitos da pessoa em cumprimento de pena, com acompanhamento de cálculos, remição, progressão de regime, livramento condicional, indulto e demais benefícios previstos em lei.",
+      "Atuação na defesa dos direitos da pessoa em cumprimento de pena, com acompanhamento de cálculos, remição, progressão de regime, livramento condicional, indulto e demais direitos previstos em lei.",
   },
   {
     id: "02",
@@ -41,22 +41,22 @@ export const AREAS = [
 const STEPS = [
   {
     n: "01",
-    title: "Primeira Escuta e Diagnóstico",
-    desc: "Compreensão cuidadosa da situação do cliente e de sua família, identificando as demandas urgentes e o histórico do caso.",
+    title: "Escuta Humanizada",
+    desc: "Antes de qualquer análise jurídica, é necessário compreender o ser humano por trás do processo para que a atuação profissional seja construída de forma verdadeiramente individualizada.",
   },
   {
     n: "02",
-    title: "Análise Técnica do Processo",
+    title: "Análise Estratégica",
     desc: "Análise detalhada da execução penal, dos cálculos de pena e de possíveis pendências administrativas ou judiciais.",
   },
   {
     n: "03",
     title: "Atuação e Acompanhamento",
-    desc: "Atuação estratégica no processo, com peticionamento, acompanhamento dos trâmites e, quando necessário, presença no sistema prisional.",
+    desc: "Atuação estratégica no processo, com peticionamento, acompanhamento processual e, quando necessário, presença no sistema prisional.",
   },
   {
     n: "04",
-    title: "Retorno Transparente à Família",
+    title: "Transparência à Família",
     desc: "Comunicação clara e próxima com a família, explicando decisões, movimentações e os próximos passos do processo.",
   },
 ];
@@ -79,25 +79,25 @@ export default function Home() {
         acompanhamento transparente para o cliente e sua família.
       </p>
 
-      {/* Botões Enxutos com Bordas Douradas */}
-      <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3 pt-1">
-        <Link
-          href="/contato"
-          className="px-5 py-2.5 bg-gold text-black border-2 border-gold rounded-lg text-xs font-mono tracking-wider uppercase font-semibold text-center hover:bg-gold/90 transition-all shadow-md shadow-gold/10"
-        >
-          Atendimento Jurídico
-        </Link>
+      {/* Botões  */}
+<div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3 pt-1">
+  <Link
+    href="/contato"
+    className="w-full sm:w-56 h-11 flex items-center justify-center px-4 bg-gold text-black border-2 border-gold rounded-lg text-xs font-mono tracking-wider uppercase font-semibold text-center hover:bg-gold/90 transition-all shadow-md shadow-gold/10 shrink-0"
+  >
+    Atendimento Jurídico
+  </Link>
 
-        <Link
-          href="/cursos"
-          className="px-5 py-2.5 border-2 border-gold text-gold rounded-lg text-xs font-mono tracking-wider uppercase text-center hover:bg-gold/10 transition-all"
-        >
-          Aprender Execução Penal
-        </Link>
-      </div>
+  <Link
+    href="/cursos"
+    className="w-full sm:w-56 h-11 flex items-center justify-center px-4 border-2 border-gold text-gold rounded-lg text-xs font-mono tracking-wider uppercase text-center hover:bg-gold/10 transition-all shrink-0"
+  >
+    Aprender Execução Penal
+  </Link>
+</div>
     </div>
 
-    {/* Foto da Dra. Rayana — Altura Completa e Sem Sombra Amarela */}
+    {/* Foto da Dra. Rayana  */}
     <div className="md:col-span-6 flex justify-center md:justify-start">
       <div className="group relative w-full max-w-[380px] sm:max-w-[420px] lg:max-w-[460px] aspect-[3/4] rounded-xl overflow-hidden border border-gold/20 shadow-2xl cursor-pointer">
         <Image
@@ -128,7 +128,7 @@ export default function Home() {
               target: 400,
               prefix: "+",
               suffix: "",
-              label: "Atendimentos jurídicos realizados no CERESP/JF",
+              label: "Atendimentos jurídicos realizados no sistema prisional/JF",
             },
             {
               target: 1,
@@ -171,7 +171,8 @@ export default function Home() {
             Atendimento especializado e humanizado
           </h2>
           <p className="text-offwhite/80 max-w-md mb-14 text-sm sm:text-base leading-relaxed">
-            Uma atuação técnica, próxima e individualizada na Execução Penal. Da progressão de regime ao livramento condicional, da remição ao cálculo de pena. Oferecendo orientação clara ao custodiado e à sua família em cada etapa.
+            Uma atuação técnica, próxima e individualizada na Execução Penal, pautada pela análise cuidadosa de cada caso e pela compreensão das particularidades de cada história. Orientação clara, estratégica e humanizada ao custodiado e à sua família em cada etapa.
+
           </p>
         </Reveal>
 
@@ -229,7 +230,8 @@ export default function Home() {
         <p>
 Minha atuação na Execução Penal nasceu da prática e da vivência diária no sistema prisional. Desde 2017, transformo essa experiência em uma advocacia técnica, próxima e humanizada, buscando tornar mais claros os caminhos e direitos de cada pessoa que chega até mim.
         </p>
-        Acredito que, por trás de cada processo, existe uma história que precisa ser ouvida. Por isso, uno conhecimento jurídico, escuta e presença — na defesa dos meus clientes, no atendimento às famílias e também no ensino, compartilhando a experiência que construí ao longo dos anos.
+        Acredito que, por trás de cada processo, existe uma história que precisa ser ouvida. Por isso, escolhi unir conhecimento jurídico, escuta e presença na defesa dos meus clientes e no acolhimento de suas famílias. Essa mesma vivência também se traduz no ensino, onde compartilho, com propósito e proximidade, o conhecimento construído ao longo dos anos.
+
       <p>
 
       </p>
@@ -350,11 +352,10 @@ Minha atuação na Execução Penal nasceu da prática e da vivência diária no
         <div className="max-w-2xl mx-auto px-6">
           <Reveal>
             <h2 className="font-serif text-3xl sm:text-4xl text-offwhite mb-3 text-center">
-              Cada hora importa
+             Cada caso merece atenção
             </h2>
             <p className="text-offwhite/80 text-center mb-10 text-sm sm:text-base">
-              Fale agora com quem vai conduzir o seu caso. Atendimento imediato
-              e confidencial, direto com a advogada responsável.
+              Fale diretamente com a advogada responsável pelo seu caso. Conte brevemente o que está acontecendo e receba uma orientação inicial sobre os próximos passos.
             </p>
             <LeadForm />
           </Reveal>
