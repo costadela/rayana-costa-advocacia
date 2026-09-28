@@ -6,27 +6,25 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { nome, whatsapp, email, caso } = body;
 
-    if (!nome || !whatsapp || !email || !caso) {
+    // Teste de inserção com retorno de erro detalhado
+    const { data, error } = await supabaseServer
+      .from("leads")
+      .insert([{ nome, whatsapp, email, caso, status: "novo" }])
+      .select();
+
+    if (error) {
+      console.error("Erro Supabase:", error);
       return NextResponse.json(
-        { error: "Todos os campos são obrigatórios." },
-        { status: 400 }
+        { erro_supabase: error.message, detalhes: error },
+        { status: 500 }
       );
     }
 
-    const { data, error } = await supabaseServer
-      .from("leads")
-      .insert([{ nome, whatsapp, email, caso, status: "novo" }]);
-
-    if (error) {
-      console.error("Erro ao inserir no Supabase:", error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
-
     return NextResponse.json({ success: true, data });
-  } catch (err) {
-    console.error("Erro na API de leads:", err);
+  } catch (err: any) {
+    console.error("Erro interno:", err);
     return NextResponse.json(
-      { error: "Erro interno no servidor." },
+      { erro_excecao: err?.message || String(err), stack: err?.stack },
       { status: 500 }
     );
   }
