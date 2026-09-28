@@ -1,19 +1,9 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { createClient } from "@supabase/supabase-js";
-
-// Inicializa o cliente do Supabase no lado do servidor
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-const supabaseKey =
-  process.env.SUPABASE_SERVICE_ROLE_KEY ||
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-  "";
-
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { supabaseServer } from "@/lib/supabase/server";
 
 export async function GET() {
   try {
-    // 1. Verifica se a requisição possui o cookie de sessão autenticado
     const cookieStore = await cookies();
     const adminSession = cookieStore.get("admin_session")?.value;
 
@@ -24,8 +14,7 @@ export async function GET() {
       );
     }
 
-    // 2. Busca todos os leads ordenados do mais recente para o mais antigo
-    const { data: leads, error } = await supabase
+    const { data: leads, error } = await supabaseServer
       .from("leads")
       .select("*")
       .order("created_at", { ascending: false });
