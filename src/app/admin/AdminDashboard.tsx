@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
 
 type Lead = {
   id: string;
@@ -48,6 +47,7 @@ export default function AdminDashboard() {
       const data = await res.json();
       setLeads(Array.isArray(data.leads) ? data.leads : []);
     } catch (error) {
+      console.error("Erro ao carregar leads:", error);
       setLeads([]);
     } finally {
       setLoading(false);
@@ -69,11 +69,13 @@ export default function AdminDashboard() {
 
   async function confirmLogout() {
     try {
-      const supabase = createClient();
-      await supabase.auth.signOut();
+      await fetch("/api/logout", {
+        method: "POST",
+      });
     } catch (err) {
-      // Ignora erro local
+      console.error("Erro ao encerrar a sessão:", err);
     } finally {
+      setShowLogoutModal(false);
       router.push("/admin/login");
       router.refresh();
     }

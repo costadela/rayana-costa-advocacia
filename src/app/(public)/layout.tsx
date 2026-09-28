@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   title: "Rayana Costa — Execução Penal",
   description: "Defesa criminal estratégica e humana. OAB/MG 192.542.",
   icons: {
-    icon: "/imagens/icon-favicon.svg",
+    icon: "/icon-favicon.svg",
   },
   openGraph: {
     title: "Rayana Costa — Execução Penal",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) {

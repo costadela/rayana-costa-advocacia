@@ -18,13 +18,20 @@ export default function AdminLogin() {
     const password = (form.elements.namedItem("password") as HTMLInputElement).value;
 
     try {
-      const validEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
-      const validPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
+      // Envia e-mail e senha para a API backend
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-      if (email !== validEmail || password !== validPassword) {
-        throw new Error("E-mail ou senha incorretos.");
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "E-mail ou senha incorretos.");
       }
 
+      // Redireciona para o painel após o login bem-sucedido
       router.push("/admin");
       router.refresh();
     } catch (err: unknown) {
@@ -61,7 +68,7 @@ export default function AdminLogin() {
               type="email"
               required
               className="w-full bg-black border border-gold/20 rounded-md px-3.5 py-2.5 text-sm text-offwhite placeholder:text-offwhite/30 focus:outline-none focus:border-gold transition-colors"
-            placeholder="seu@email.com"
+              placeholder="seu@email.com"
             />
           </div>
 
@@ -75,7 +82,7 @@ export default function AdminLogin() {
               type="password"
               required
               className="w-full bg-black border border-gold/20 rounded-md px-3.5 py-2.5 text-sm text-offwhite focus:outline-none focus:border-gold transition-colors"
-            placeholder="********"
+              placeholder="********"
             />
           </div>
 

@@ -31,7 +31,7 @@ export default function LeadForm() {
     if (validationError) setValidationError("");
   }
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setValidationError("");
 
@@ -62,7 +62,24 @@ export default function LeadForm() {
 
     setStatus("loading");
 
-    // Redirecionamento direto para o WhatsApp
+    // 4. Salva o Lead no banco de dados via API Route
+    try {
+      await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nome,
+          whatsapp: rawDigits,
+          email,
+          caso,
+        }),
+      });
+    } catch (err) {
+      // Log do erro silencioso para não interromper a jornada do cliente até o WhatsApp
+      console.error("Erro ao salvar o lead no banco de dados:", err);
+    }
+
+    // 5. Redirecionamento direto para o WhatsApp
     const numeroWhatsApp = "5532985094669";
     const mensagem = `Olá, Dra. Rayana. Gostaria de uma análise preliminar do meu caso.
 
