@@ -128,7 +128,7 @@ export default function Home() {
               target: 400,
               prefix: "+",
               suffix: "",
-              label: "Atendimentos jurídicos realizados no sistema prisional/JF",
+              label: "Atendimentos jurídicos realizados no Sistema Prisional/JF",
             },
             {
               target: 1,

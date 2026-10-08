@@ -1,23 +1,21 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { isAdminSessionValid } from "@/lib/admin-session";
 
-export function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Obtém o cookie de sessão do administrador
   const adminSession = request.cookies.get("admin_session")?.value;
+  const isAuthenticated = await isAdminSessionValid(adminSession);
 
-  // 1. Se o usuário estiver tentando acessar qualquer subrota de /admin (exceto a tela de login)
   if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
-    // Se NÃO tiver sessão ativa, redireciona imediatamente para o login
-    if (!adminSession) {
+    if (!isAuthenticated) {
       const loginUrl = new URL("/admin/login", request.url);
       return NextResponse.redirect(loginUrl);
     }
   }
 
-  // 2. Se o usuário JÁ estiver autenticado e tentar acessar a tela de login, redireciona para o Dashboard
-  if (pathname === "/admin/login" && adminSession) {
+  if (pathname === "/admin/login" && isAuthenticated) {
     const dashboardUrl = new URL("/admin", request.url);
     return NextResponse.redirect(dashboardUrl);
   }
@@ -25,7 +23,6 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-// Configuração para aplicar o middleware apenas às rotas administrativas
 export const config = {
   matcher: ["/admin/:path*"],
 };

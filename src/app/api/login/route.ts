@@ -1,4 +1,9 @@
 import { NextResponse } from "next/server";
+import {
+  createAdminSessionToken,
+  SESSION_COOKIE_NAME,
+  SESSION_DURATION_SECONDS,
+} from "@/lib/admin-session";
 
 export async function POST(request: Request) {
   try {
@@ -24,14 +29,14 @@ export async function POST(request: Request) {
       );
     }
 
+    const sessionToken = await createAdminSessionToken();
     const response = NextResponse.json({ success: true }, { status: 200 });
 
-    // Cookie de sessão seguro com validade de 2 horas (7200 segundos)
-    response.cookies.set("admin_session", "authenticated", {
+    response.cookies.set(SESSION_COOKIE_NAME, sessionToken, {
       httpOnly: true, // Impede que scripts no navegador leiam o cookie
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-      maxAge: 60 * 60 * 2, // 2 horas de validade
+      maxAge: SESSION_DURATION_SECONDS,
       path: "/",
     });
 

@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { supabaseServer } from "@/lib/supabase/server";
+import { isAdminSessionValid, SESSION_COOKIE_NAME } from "@/lib/admin-session";
 
 export async function GET() {
   try {
     const cookieStore = await cookies();
-    const adminSession = cookieStore.get("admin_session")?.value;
+    const adminSession = cookieStore.get(SESSION_COOKIE_NAME)?.value;
 
-    if (!adminSession) {
+    if (!(await isAdminSessionValid(adminSession))) {
       return NextResponse.json(
         { error: "Acesso não autorizado." },
         { status: 401 }
