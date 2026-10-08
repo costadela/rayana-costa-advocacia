@@ -5,7 +5,7 @@ import Reveal from "@/components/Reveal";
 import FaqAccordion from "@/components/FaqAccordion";
 import CountUp from "@/components/CountUp";
 
-export const AREAS = [
+const AREAS = [
   {
     id: "01",
     title: "Execução Penal",
