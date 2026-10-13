@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 type Lead = {
@@ -13,18 +13,25 @@ type Lead = {
   created_at: string;
 };
 
+const LEAD_STATUSES: Lead["status"][] = [
+  "novo",
+  "cliente",
+  "contatado",
+  "sem_resposta",
+];
+
 const STATUS_LABEL: Record<Lead["status"], string> = {
   novo: "Novo",
-  contatado: "Contatado",
+  contatado: "Mensagem enviada",
   sem_resposta: "Sem resposta",
-  cliente: "Cliente",
+  cliente: "Contratado",
 };
 
 const STATUS_COLOR: Record<Lead["status"], string> = {
-  novo: "text-gold border-gold/40",
-  contatado: "text-blue-300 border-blue-300/40",
-  sem_resposta: "text-offwhite/50 border-offwhite/30",
-  cliente: "text-green-300 border-green-300/40",
+  novo: "bg-red-500",
+  contatado: "bg-blue-400",
+  sem_resposta: "bg-gray-400",
+  cliente: "bg-green-400",
 };
 
 export default function AdminDashboard() {
@@ -34,36 +41,81 @@ export default function AdminDashboard() {
   const [search, setSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState<string>("todos");
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [leadToDelete, setLeadToDelete] = useState<Lead | null>(null);
+  const [deletingLead, setDeletingLead] = useState(false);
+  const [actionError, setActionError] = useState("");
 
   useEffect(() => {
-    loadLeads();
+    let cancelled = false;
+
+    fetch("/api/admin/leads")
+      .then((res) => {
+        if (!res.ok) throw new Error("Falha ao buscar dados");
+        return res.json();
+      })
+      .then((data) => {
+        if (!cancelled) {
+          setLeads(Array.isArray(data.leads) ? data.leads : []);
+        }
+      })
+      .catch((error: unknown) => {
+        console.error("Erro ao carregar leads:", error);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  async function loadLeads() {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/admin/leads");
-      if (!res.ok) throw new Error("Falha ao buscar dados");
-      const data = await res.json();
-      setLeads(Array.isArray(data.leads) ? data.leads : []);
-    } catch (error) {
-      console.error("Erro ao carregar leads:", error);
-      setLeads([]);
-    } finally {
-      setLoading(false);
-    }
-  }
-
   async function updateStatus(id: string, status: Lead["status"]) {
-    setLeads((prev) => prev.map((l) => (l.id === id ? { ...l, status } : l)));
+    setActionError("");
     try {
-      await fetch(`/api/admin/leads/${id}`, {
+      const res = await fetch(`/api/admin/leads/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status }),
       });
-    } catch (err) {
-      console.error("Erro ao atualizar status:", err);
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || "Não foi possível atualizar o status.");
+      }
+      setLeads((prev) =>
+        prev.map((lead) => (lead.id === id ? { ...lead, status } : lead))
+      );
+    } catch (error) {
+      console.error("Erro ao atualizar status:", error);
+      setActionError(
+        error instanceof Error ? error.message : "Não foi possível atualizar o status."
+      );
+    }
+  }
+
+  async function confirmDeleteLead() {
+    if (!leadToDelete) return;
+
+    setDeletingLead(true);
+    setActionError("");
+    try {
+      const res = await fetch(`/api/admin/leads/${leadToDelete.id}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || "Não foi possível excluir o lead.");
+      }
+
+      setLeads((prev) => prev.filter((lead) => lead.id !== leadToDelete.id));
+      setLeadToDelete(null);
+    } catch (error) {
+      console.error("Erro ao excluir lead:", error);
+      setActionError(
+        error instanceof Error ? error.message : "Não foi possível excluir o lead."
+      );
+    } finally {
+      setDeletingLead(false);
     }
   }
 
@@ -107,15 +159,13 @@ export default function AdminDashboard() {
     URL.revokeObjectURL(url);
   }
 
-  const filtered = useMemo(() => {
-    return leads.filter((l) => {
-      const matchesSearch =
-        l.nome.toLowerCase().includes(search.toLowerCase()) ||
-        l.email.toLowerCase().includes(search.toLowerCase());
-      const matchesStatus = filterStatus === "todos" || l.status === filterStatus;
-      return matchesSearch && matchesStatus;
-    });
-  }, [leads, search, filterStatus]);
+  const filtered = leads.filter((l) => {
+    const matchesSearch =
+      l.nome.toLowerCase().includes(search.toLowerCase()) ||
+      l.email.toLowerCase().includes(search.toLowerCase());
+    const matchesStatus = filterStatus === "todos" || l.status === filterStatus;
+    return matchesSearch && matchesStatus;
+  });
 
   return (
     <div className="min-h-screen bg-black text-offwhite flex flex-col justify-between">
@@ -175,6 +225,28 @@ export default function AdminDashboard() {
           </button>
         </div>
 
+        <div
+          role="group"
+          aria-label="Legenda dos status"
+          className="flex flex-wrap gap-x-5 gap-y-2"
+        >
+          {LEAD_STATUSES.map((status) => (
+            <span key={status} className="inline-flex items-center gap-2 text-xs text-offwhite/70">
+              <span
+                aria-hidden="true"
+                className={`h-2.5 w-2.5 rounded-full ${STATUS_COLOR[status]}`}
+              />
+              {STATUS_LABEL[status]}
+            </span>
+          ))}
+        </div>
+
+        {actionError && (
+          <p role="alert" className="text-sm text-red-400">
+            {actionError}
+          </p>
+        )}
+
         {/* Tabela de Leads */}
         {loading ? (
           <p className="text-offwhite/50 text-center py-12 text-sm">Carregando informações...</p>
@@ -192,6 +264,7 @@ export default function AdminDashboard() {
                   <th className="px-4 py-3 font-normal">Caso</th>
                   <th className="px-4 py-3 font-normal">Data</th>
                   <th className="px-4 py-3 font-normal">Status</th>
+                  <th className="px-4 py-3 font-normal">Ações</th>
                 </tr>
               </thead>
               <tbody>
@@ -216,17 +289,37 @@ export default function AdminDashboard() {
                       {new Date(lead.created_at).toLocaleDateString("pt-BR")}
                     </td>
                     <td className="px-4 py-4 align-top">
-                      <select
-                        value={lead.status}
-                        onChange={(e) => updateStatus(lead.id, e.target.value as Lead["status"])}
-                        className={`bg-black border rounded-md px-2 py-1 text-xs cursor-pointer ${STATUS_COLOR[lead.status]}`}
+                      <label className="relative inline-flex items-center gap-2 rounded-md px-1 py-1 text-xs text-offwhite focus-within:ring-1 focus-within:ring-gold">
+                        <span
+                          aria-hidden="true"
+                          className={`h-2.5 w-2.5 shrink-0 rounded-full ${STATUS_COLOR[lead.status]}`}
+                        />
+                        <span>{STATUS_LABEL[lead.status]}</span>
+                        <select
+                          aria-label={`Alterar status de ${lead.nome}`}
+                          value={lead.status}
+                          onChange={(e) => updateStatus(lead.id, e.target.value as Lead["status"])}
+                          className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+                        >
+                          {LEAD_STATUSES.map((status) => (
+                            <option key={status} value={status}>
+                              {STATUS_LABEL[status]}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                    </td>
+                    <td className="px-4 py-4 align-top">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setActionError("");
+                          setLeadToDelete(lead);
+                        }}
+                        className="text-xs text-red-400 hover:text-red-300 underline underline-offset-2 cursor-pointer whitespace-nowrap"
                       >
-                        {Object.entries(STATUS_LABEL).map(([value, label]) => (
-                          <option key={value} value={value} className="bg-black text-offwhite">
-                            {label}
-                          </option>
-                        ))}
-                      </select>
+                        Excluir
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -242,6 +335,42 @@ export default function AdminDashboard() {
           © {new Date().getFullYear()} Rayana Costa Advocacia. Painel Administrativo de Uso Interno.
         </div>
       </footer>
+
+      {leadToDelete && (
+        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="delete-lead-title"
+            className="bg-black border border-red-500/30 rounded-lg p-6 max-w-sm w-full space-y-4 shadow-2xl"
+          >
+            <h3 id="delete-lead-title" className="font-serif text-lg text-offwhite">
+              Excluir lead?
+            </h3>
+            <p className="text-xs text-offwhite/70 leading-relaxed">
+              O lead de {leadToDelete.nome} será removido permanentemente.
+            </p>
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <button
+                type="button"
+                onClick={() => setLeadToDelete(null)}
+                disabled={deletingLead}
+                className="px-4 py-2 border border-gold/20 text-offwhite/80 hover:text-offwhite rounded-md text-xs cursor-pointer disabled:opacity-50"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={confirmDeleteLead}
+                disabled={deletingLead}
+                className="px-4 py-2 bg-red-500/80 hover:bg-red-500 text-white font-medium rounded-md text-xs transition-colors cursor-pointer disabled:opacity-50"
+              >
+                {deletingLead ? "Excluindo..." : "Sim, excluir"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Modal de Desconexão */}
       {showLogoutModal && (
