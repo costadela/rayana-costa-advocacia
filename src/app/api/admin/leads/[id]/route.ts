@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { supabaseServer } from "@/lib/supabase/server";
+import { createSupabaseAdminClient } from "@/lib/supabase/server";
 import { isAdminSessionValid, SESSION_COOKIE_NAME } from "@/lib/admin-session";
 
 const LEAD_STATUSES = ["novo", "contatado", "sem_resposta", "cliente"] as const;
@@ -15,6 +15,10 @@ function isLeadStatus(value: unknown): value is LeadStatus {
     typeof value === "string" &&
     LEAD_STATUSES.some((status) => status === value)
   );
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 async function hasAdminSession() {
@@ -36,16 +40,20 @@ export async function PATCH(request: Request, { params }: RouteContext) {
     }
 
     if (
-      typeof body !== "object" ||
-      body === null ||
+      !isRecord(body) ||
+      Object.keys(body).length !== 1 ||
       !("status" in body) ||
       !isLeadStatus(body.status)
     ) {
-      return NextResponse.json({ error: "Status inválido." }, { status: 400 });
+      return NextResponse.json(
+        { error: "Informe somente um status válido para o lead." },
+        { status: 400 }
+      );
     }
 
     const { id } = await params;
-    const { data, error } = await supabaseServer
+    const supabaseAdmin = createSupabaseAdminClient();
+    const { data, error } = await supabaseAdmin
       .from("leads")
       .update({ status: body.status })
       .eq("id", id)
@@ -81,7 +89,8 @@ export async function DELETE(_request: Request, { params }: RouteContext) {
     }
 
     const { id } = await params;
-    const { data, error } = await supabaseServer
+    const supabaseAdmin = createSupabaseAdminClient();
+    const { data, error } = await supabaseAdmin
       .from("leads")
       .delete()
       .eq("id", id)

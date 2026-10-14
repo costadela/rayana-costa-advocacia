@@ -29,6 +29,12 @@ A aplicação foi projetada sob uma estética editorial minimalista de tom escur
 - **Estilização:** [Tailwind CSS](https://tailwindcss.com/)
 - **Banco de Dados & Autenticação:** [Supabase](https://supabase.com/) (`/lib/supabase/client.ts` e `projects.ts`)
 
+#### Configuração da gestão de leads
+
+As operações administrativas de consulta, alteração de status e exclusão usam a variável `SUPABASE_SERVICE_ROLE_KEY`, somente no servidor, para não depender das políticas RLS da tabela `leads`. Os dados pessoais e a descrição enviados pelo formulário não podem ser editados pelo painel. Configure a chave no arquivo `.env.local` durante o desenvolvimento e também nas variáveis de ambiente do serviço de hospedagem. No Supabase, copie a chave `service_role`/secret nas configurações de API do projeto. Nunca a exponha em uma variável `NEXT_PUBLIC_` nem a compartilhe no navegador.
+
+Essa configuração não exige alteração na estrutura do banco: a tabela `leads` deve ter as colunas `id`, `nome`, `whatsapp`, `email`, `caso`, `status` e `created_at`; os status aceitos são `novo`, `contatado`, `sem_resposta` e `cliente`.
+
 ### **Componentes Reutilizáveis (`/src/components`)**
 - `Navbar.tsx` & `Footer.tsx`: Componentes globais de navegação e rodapé.
 - `ProjectCard.tsx`: Card reaproveitável com efeito de hover, grayscale dinâmico e suporte a diferentes proporções.

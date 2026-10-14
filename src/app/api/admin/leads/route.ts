@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { supabaseServer } from "@/lib/supabase/server";
+import { createSupabaseAdminClient } from "@/lib/supabase/server";
 import { isAdminSessionValid, SESSION_COOKIE_NAME } from "@/lib/admin-session";
 
 export async function GET() {
@@ -15,7 +15,8 @@ export async function GET() {
       );
     }
 
-    const { data: leads, error } = await supabaseServer
+    const supabaseAdmin = createSupabaseAdminClient();
+    const { data: leads, error } = await supabaseAdmin
       .from("leads")
       .select("*")
       .order("created_at", { ascending: false });

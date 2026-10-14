@@ -43,6 +43,7 @@ export default function AdminDashboard() {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [leadToDelete, setLeadToDelete] = useState<Lead | null>(null);
   const [deletingLead, setDeletingLead] = useState(false);
+  const [updatingStatusId, setUpdatingStatusId] = useState<string | null>(null);
   const [actionError, setActionError] = useState("");
 
   useEffect(() => {
@@ -60,6 +61,13 @@ export default function AdminDashboard() {
       })
       .catch((error: unknown) => {
         console.error("Erro ao carregar leads:", error);
+        if (!cancelled) {
+          setActionError(
+            error instanceof Error
+              ? error.message
+              : "Não foi possível carregar os leads."
+          );
+        }
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
@@ -72,6 +80,7 @@ export default function AdminDashboard() {
 
   async function updateStatus(id: string, status: Lead["status"]) {
     setActionError("");
+    setUpdatingStatusId(id);
     try {
       const res = await fetch(`/api/admin/leads/${id}`, {
         method: "PATCH",
@@ -90,6 +99,8 @@ export default function AdminDashboard() {
       setActionError(
         error instanceof Error ? error.message : "Não foi possível atualizar o status."
       );
+    } finally {
+      setUpdatingStatusId(null);
     }
   }
 
@@ -299,6 +310,7 @@ export default function AdminDashboard() {
                           aria-label={`Alterar status de ${lead.nome}`}
                           value={lead.status}
                           onChange={(e) => updateStatus(lead.id, e.target.value as Lead["status"])}
+                          disabled={updatingStatusId === lead.id}
                           className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
                         >
                           {LEAD_STATUSES.map((status) => (
@@ -350,10 +362,18 @@ export default function AdminDashboard() {
             <p className="text-xs text-offwhite/70 leading-relaxed">
               O lead de {leadToDelete.nome} será removido permanentemente.
             </p>
+            {actionError && (
+              <p role="alert" className="text-sm text-red-400">
+                {actionError}
+              </p>
+            )}
             <div className="flex items-center justify-end gap-3 pt-2">
               <button
                 type="button"
-                onClick={() => setLeadToDelete(null)}
+                onClick={() => {
+                  setActionError("");
+                  setLeadToDelete(null);
+                }}
                 disabled={deletingLead}
                 className="px-4 py-2 border border-gold/20 text-offwhite/80 hover:text-offwhite rounded-md text-xs cursor-pointer disabled:opacity-50"
               >
