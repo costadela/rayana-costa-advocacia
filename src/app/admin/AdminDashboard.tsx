@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 
 type Lead = {
   id: string;
@@ -35,12 +34,10 @@ const STATUS_COLOR: Record<Lead["status"], string> = {
 };
 
 export default function AdminDashboard() {
-  const router = useRouter();
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState<string>("todos");
-  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [leadToDelete, setLeadToDelete] = useState<Lead | null>(null);
   const [deletingLead, setDeletingLead] = useState(false);
   const [updatingStatusId, setUpdatingStatusId] = useState<string | null>(null);
@@ -130,20 +127,6 @@ export default function AdminDashboard() {
     }
   }
 
-  async function confirmLogout() {
-    try {
-      await fetch("/api/logout", {
-        method: "POST",
-      });
-    } catch (err) {
-      console.error("Erro ao encerrar a sessão:", err);
-    } finally {
-      setShowLogoutModal(false);
-      router.push("/admin/login");
-      router.refresh();
-    }
-  }
-
   function exportCsv() {
     if (filtered.length === 0) return;
 
@@ -179,29 +162,7 @@ export default function AdminDashboard() {
   });
 
   return (
-    <div className="min-h-screen bg-black text-offwhite flex flex-col justify-between">
-      {/* Topo Exclusivo da Área Restrita */}
-      <header className="border-b border-gold/15 bg-black py-6 px-6">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div>
-            <h1 className="font-serif text-xl sm:text-2xl font-semibold text-offwhite">
-              Dra. Rayana Costa
-            </h1>
-            <p className="text-[10px] text-gold tracking-[0.2em] uppercase font-medium">
-              Painel Administrativo
-            </p>
-          </div>
-          <button
-            onClick={() => setShowLogoutModal(true)}
-            className="px-4 py-2 border border-red-500/30 text-red-400 hover:bg-red-500/10 rounded-md text-xs font-medium transition-colors cursor-pointer"
-          >
-            Encerrar Sessão
-          </button>
-        </div>
-      </header>
-
-      {/* Conteúdo do Dashboard */}
-      <main className="flex-1 max-w-6xl w-full mx-auto px-6 py-10 space-y-8">
+    <div className="max-w-6xl w-full mx-auto px-6 py-10 space-y-8">
         <div>
           <h2 className="font-serif text-2xl sm:text-3xl text-offwhite">Gerenciamento de Leads</h2>
           <p className="text-xs text-offwhite/60 pt-1">Acompanhe os contatos e clientes recebidos pelo site</p>
@@ -339,14 +300,6 @@ export default function AdminDashboard() {
             </table>
           </div>
         )}
-      </main>
-
-      {/* Rodapé Interno */}
-      <footer className="border-t border-gold/10 bg-black py-6 mt-12">
-        <div className="max-w-6xl mx-auto px-6 text-center text-xs text-offwhite/40">
-          © {new Date().getFullYear()} Rayana Costa Advocacia. Painel Administrativo de Uso Interno.
-        </div>
-      </footer>
 
       {leadToDelete && (
         <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4">
@@ -392,31 +345,6 @@ export default function AdminDashboard() {
         </div>
       )}
 
-      {/* Modal de Desconexão */}
-      {showLogoutModal && (
-        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-black border border-gold/30 rounded-lg p-6 max-w-sm w-full space-y-4 shadow-2xl">
-            <h3 className="font-serif text-lg text-offwhite">Deseja realmente sair?</h3>
-            <p className="text-xs text-offwhite/70 leading-relaxed">
-              Sua sessão será encerrada e você precisará se autenticar novamente.
-            </p>
-            <div className="flex items-center justify-end gap-3 pt-2">
-              <button
-                onClick={() => setShowLogoutModal(false)}
-                className="px-4 py-2 border border-gold/20 text-offwhite/80 hover:text-offwhite rounded-md text-xs cursor-pointer"
-              >
-                Cancelar
-              </button>
-              <button
-                onClick={confirmLogout}
-                className="px-4 py-2 bg-red-500/80 hover:bg-red-500 text-white font-medium rounded-md text-xs transition-colors cursor-pointer"
-              >
-                Sim, encerrar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
