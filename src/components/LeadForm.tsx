@@ -8,6 +8,7 @@ export default function LeadForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [whatsappValue, setWhatsappValue] = useState("");
   const [validationError, setValidationError] = useState("");
+  const [leadSaveError, setLeadSaveError] = useState(false);
 
   // Função para aplicar máscara e limitar dígitos do telefone/WhatsApp
   function handleWhatsappChange(e: ChangeEvent<HTMLInputElement>) {
@@ -61,10 +62,21 @@ export default function LeadForm() {
     }
 
     setStatus("loading");
+    setLeadSaveError(false);
 
-    // 4. Salva o Lead no banco de dados via API Route
+    const numeroWhatsApp = "5532985094669";
+    const mensagem = `Olá, Dra. Rayana. Gostaria de uma análise preliminar do meu caso.
+
+*Nome:* ${nome}
+*WhatsApp:* ${whatsappValue}
+*E-mail:* ${email}
+*Resumo do caso:* ${caso}`;
+    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+
+    window.open(url, "_blank", "noopener,noreferrer");
+
     try {
-      await fetch("/api/leads", {
+      const response = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -74,22 +86,13 @@ export default function LeadForm() {
           caso,
         }),
       });
-    } catch (err) {
-      // Log do erro silencioso para não interromper a jornada do cliente até o WhatsApp
-      console.error("Erro ao salvar o lead no banco de dados:", err);
+      if (!response.ok) {
+        throw new Error("A API recusou o registro do contato.");
+      }
+    } catch (error) {
+      console.error("Erro ao salvar o lead no banco de dados:", error);
+      setLeadSaveError(true);
     }
-
-    // 5. Redirecionamento direto para o WhatsApp
-    const numeroWhatsApp = "5532985094669";
-    const mensagem = `Olá, Dra. Rayana. Gostaria de uma análise preliminar do meu caso.
-
-*Nome:* ${nome}
-*WhatsApp:* ${whatsappValue}
-*E-mail:* ${email}
-*Resumo do caso:* ${caso}`;
-
-    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
-    window.open(url, "_blank", "noopener,noreferrer");
 
     setStatus("success");
     form.reset();
@@ -103,6 +106,12 @@ export default function LeadForm() {
         <p className="text-offwhite/80 text-sm max-w-md mx-auto leading-relaxed">
           Caso a conversa no WhatsApp não tenha aberto automaticamente, clique no botão abaixo para iniciar o atendimento imediato.
         </p>
+        {leadSaveError && (
+          <p role="alert" className="text-sm text-red-400 max-w-md mx-auto">
+            Não foi possível registrar seus dados no sistema. O WhatsApp foi
+            aberto para você continuar o atendimento.
+          </p>
+        )}
         <div className="pt-2">
           <a
             href="https://wa.me/5532985094669"
@@ -128,6 +137,7 @@ export default function LeadForm() {
           name="nome"
           required
           minLength={3}
+          maxLength={200}
           className="w-full bg-black/60 border border-gold/20 rounded-md px-4 py-3 text-offwhite placeholder:text-offwhite/35 focus:outline-none focus:border-gold transition-colors"
           placeholder="Seu nome completo"
         />
@@ -158,6 +168,7 @@ export default function LeadForm() {
             name="email"
             required
             type="email"
+            maxLength={254}
             className="w-full bg-black/60 border border-gold/20 rounded-md px-4 py-3 text-offwhite placeholder:text-offwhite/35 focus:outline-none focus:border-gold transition-colors"
             placeholder="seu@email.com"
           />
@@ -173,6 +184,7 @@ export default function LeadForm() {
           name="caso"
           required
           minLength={10}
+          maxLength={5000}
           rows={4}
           className="w-full bg-black/60 border border-gold/20 rounded-md px-4 py-3 text-offwhite placeholder:text-offwhite/35 focus:outline-none focus:border-gold transition-colors resize-none"
           placeholder="Descreva a situação com o máximo de detalhes possível"

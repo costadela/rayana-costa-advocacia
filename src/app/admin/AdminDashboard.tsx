@@ -130,16 +130,24 @@ export default function AdminDashboard() {
   function exportCsv() {
     if (filtered.length === 0) return;
 
+    const csvCell = (value: string) => {
+      const safeValue = /^[\s\u0000-\u001F]*[=+\-@]/u.test(value)
+        ? `'${value}`
+        : value;
+
+      return `"${safeValue.replace(/"/g, '""')}"`;
+    };
+
     const header = "Nome,WhatsApp,Email,Caso,Status,Data\n";
     const rows = filtered
       .map((l) =>
         [
-          `"${l.nome.replace(/"/g, '""')}"`,
-          `"${l.whatsapp}"`,
-          `"${l.email}"`,
-          `"${l.caso.replace(/"/g, '""')}"`,
-          `"${STATUS_LABEL[l.status]}"`,
-          `"${new Date(l.created_at).toLocaleString("pt-BR")}"`,
+          csvCell(l.nome),
+          csvCell(l.whatsapp),
+          csvCell(l.email),
+          csvCell(l.caso),
+          csvCell(STATUS_LABEL[l.status]),
+          csvCell(new Date(l.created_at).toLocaleString("pt-BR")),
         ].join(",")
       )
       .join("\n");
